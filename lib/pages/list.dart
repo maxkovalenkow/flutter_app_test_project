@@ -150,7 +150,7 @@ class ProjectTitle extends StatelessWidget {
             ],
           ),
         ),
-        Text('${item['price']}'),
+        Text('${item['price']} руб.'),
         IconButton(
           onPressed: () {
             onPressed(item);
@@ -163,19 +163,26 @@ class ProjectTitle extends StatelessWidget {
 }
 
 // ignore: must_be_immutable
-class ProjectTitle1 extends StatelessWidget {
+class ProjectTitleInfo extends StatelessWidget {
   Map item = {};
 
-  ProjectTitle1({this.item});
+  ProjectTitleInfo({this.item});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
+        Text('Name:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),),
         Text(item['name']),
-        Text('${item['price']}'),
+        SizedBox(height: 16.0,),
+        Text('Price:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),),
+        Text('${item['price']} руб.'),
+        SizedBox(height: 16.0,),
+        Text('Title:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),),
         Text(item['title']),
+        SizedBox(height: 16.0,),
+        Text('Description:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),),
         Text(item['description']),
       ],
     );

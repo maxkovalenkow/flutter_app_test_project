@@ -20,7 +20,7 @@ class _ProjectInfoState extends State<ProjectInfo> {
         title: Text('Info'),
       ),
       body: ProjectCard(
-        title: ProjectTitle1(item: item),
+        title: ProjectTitleInfo(item: item),
       ),
     );
   }
