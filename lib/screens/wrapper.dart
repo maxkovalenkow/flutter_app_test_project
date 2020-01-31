@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_test_project/screens/home/home.dart';
 import 'package:flutter_app_test_project/models/user.dart';
 import 'package:flutter_app_test_project/services/auth.dart';
+import 'package:flutter_app_test_project/shared/loading.dart';
 import 'package:provider/provider.dart';
 
 class Wrapper extends StatefulWidget {
@@ -18,7 +19,7 @@ class _WrapperState extends State<Wrapper> {
 
     if(user == null) {
       _auth.signInAnon();
-      return Container();
+      return Loading();
     } else {
       return Home();
     }
