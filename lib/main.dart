@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_test_project/pages/add.dart';
-import 'package:flutter_app_test_project/pages/home.dart';
-import 'package:flutter_app_test_project/pages/list.dart';
-import 'package:flutter_app_test_project/pages/info.dart';
+import 'package:flutter_app_test_project/screens/wrapper.dart';
+import 'package:flutter_app_test_project/services/auth.dart';
+import 'package:flutter_app_test_project/models/user.dart';
+import 'package:provider/provider.dart';
 
-void main() => runApp(
-  MaterialApp(
-    initialRoute: '/home',
-    routes: {
-      '/home': (context) => ProjectHome(),
-      '/ProjectList': (context) => ProjectList(),
-      '/ProjectInfo': (context) => ProjectInfo(),
-      '/ProjectAdd': (context) => ProjectAdd(),
-    },
-  )
-);
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return StreamProvider<User>.value(
+        value: AuthService().user,
+        child: MaterialApp(
+            home: Wrapper(),
+        )
+    );
+  }
+}
