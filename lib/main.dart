@@ -103,26 +103,6 @@ class _MyAppState extends State<MyApp> {
         );
 
         break;
-      /*case 3:
-        actions = null;
-        floatingActionButton = null;
-
-        History history = History();
-        title = history.nameTemplate;
-
-        body = Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Expanded(
-                child: ViewList(
-                  tableTemplate: history,
-                ),
-              ),
-            ],
-          ),
-        );
-        break;*/
     }
 
     return Scaffold(
