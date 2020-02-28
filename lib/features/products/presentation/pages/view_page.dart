@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_test_project/features/products/data/models/product_model.dart';
+import 'package:flutter_app_test_project/features/products/data/models/model.dart';
 
 class ViewProductPage extends StatefulWidget {
   ViewProductPage({Key key, this.product}) : super(key: key);

@@ -1,8 +1,8 @@
 import 'dart:async';
 
+import 'package:flutter_app_test_project/features/products/data/repositories/repository_impl.dart';
 import 'package:flutter_app_test_project/features/products/presentation/bloc/bloc_provider.dart';
-import 'package:flutter_app_test_project/features/products/data/datasources/database.dart';
-import 'package:flutter_app_test_project/features/products/data/models/product_model.dart';
+import 'package:flutter_app_test_project/features/products/data/models/model.dart';
 
 class ViewProductBloc implements BlocBase {
 	final _saveProductController = StreamController<Product>.broadcast();
@@ -31,11 +31,11 @@ class ViewProductBloc implements BlocBase {
 	}
 
 	void _handleSaveProduct(Product product) async {
-		await Database.db.updateLine('products', product.id, product.toJson());
+		await ProductRepositoryImpl.getThisRepository.updateProduct(product.id, product);
 	}
 
 	void _handleDeleteProduct(int id) async {
-		await Database.db.deleteLine('products', id);
+		await ProductRepositoryImpl.getThisRepository.deleteProduct(id);
 
 		// Set this to true in order to ensure a product is deleted
 		// before doing anything else

@@ -1,8 +1,8 @@
 import 'dart:async';
 
+import 'package:flutter_app_test_project/features/products/data/repositories/repository_impl.dart';
 import 'package:flutter_app_test_project/features/products/presentation/bloc/bloc_provider.dart';
-import 'package:flutter_app_test_project/features/products/data/datasources/database.dart';
-import 'package:flutter_app_test_project/features/products/data/models/product_model.dart';
+import 'package:flutter_app_test_project/features/products/data/models/model.dart';
 
 class ProductsBloc implements BlocBase {
 	// Create a broadcast controller that allows this stream to be listened
@@ -35,16 +35,13 @@ class ProductsBloc implements BlocBase {
 	}
 
 	void getProducts() async {
-		// Retrieve all the products from the database
-		List<Map<String, dynamic>> res = await Database.db.getLines('products');
-
 		// Add all of the products to the stream so we can grab them later from our pages
-		_inProducts.add(res.isNotEmpty ? res.map((product) => Product.fromJson(product)).toList() : []);
+		_inProducts.add(await ProductRepositoryImpl.getThisRepository.getProducts());
 	}
 
 	void _handleAddProduct(Product product) async {
 		// Create the product in the database
-		await Database.db.newLine('products', product.toJson());
+		await ProductRepositoryImpl.getThisRepository.newProduct(product);
 
 		// Retrieve all the products again after one is added.
 		// This allows our pages to update properly and display the

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_test_project/features/products/presentation/pages/products_list_page.dart';
+import 'package:flutter_app_test_project/features/products/presentation/pages/list_page.dart';
 import 'package:flutter_app_test_project/features/products/presentation/bloc/bloc_provider.dart';
-import 'package:flutter_app_test_project/features/products/presentation/bloc/products_bloc.dart';
+import 'package:flutter_app_test_project/features/products/presentation/bloc/bloc.dart';
 
 void main() => runApp(MyApp());
 

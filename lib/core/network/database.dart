@@ -64,15 +64,15 @@ class Database {
 
     var res = await db.query(table);
 
-    return res;
+    return res.isNotEmpty ? res : [];
   }
 
-  Future<List<Map<String, dynamic>>> getLine(String table, int id) async {
+  Future<Map<String, dynamic>> getLine(String table, int id) async {
     final db = await database;
 
     var res = await db.query(table, where: 'id = ?', whereArgs: [id]);
 
-    return res;
+    return res.isNotEmpty ? res[0] : {};
   }
 
   Future<int> updateLine(

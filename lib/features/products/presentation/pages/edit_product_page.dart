@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_test_project/features/products/presentation/bloc/bloc_provider.dart';
-import 'package:flutter_app_test_project/features/products/presentation/bloc/view_product_bloc.dart';
-import 'package:flutter_app_test_project/features/products/data/models/product_model.dart';
+import 'package:flutter_app_test_project/features/products/presentation/bloc/view_bloc.dart';
+import 'package:flutter_app_test_project/features/products/data/models/model.dart';
 
 class EditProductPage extends StatefulWidget {
   EditProductPage({Key key, this.product}) : super(key: key);
@@ -50,7 +50,7 @@ class _EditProductPageState extends State<EditProductPage> {
       if (deleted) {
         // Pop and return true to let the main page know that a product was deleted and that
         // it has to update the products list.
-        Navigator.of(context).pop(true);
+        Navigator.of(context).pop();
       }
     });
   }

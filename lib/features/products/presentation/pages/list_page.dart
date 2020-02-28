@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_test_project/features/products/presentation/bloc/bloc_provider.dart';
-import 'package:flutter_app_test_project/features/products/presentation/bloc/products_bloc.dart';
-import 'package:flutter_app_test_project/features/products/presentation/bloc/view_product_bloc.dart';
-//import 'package:flutter_app_test_project/features/products/presentation/pages/edit_product_page.dart';
-import 'package:flutter_app_test_project/features/products/data/models/product_model.dart';
-import 'package:flutter_app_test_project/features/products/presentation/pages/view_product_page.dart';
+import 'package:flutter_app_test_project/features/products/presentation/bloc/bloc.dart';
+import 'package:flutter_app_test_project/features/products/presentation/bloc/view_bloc.dart';
+import 'package:flutter_app_test_project/features/products/data/models/model.dart';
+import 'package:flutter_app_test_project/features/products/presentation/pages/view_page.dart';
 
 class ProductsListPage extends StatefulWidget {
   ProductsListPage({Key key, this.title}) : super(key: key);
@@ -36,11 +35,7 @@ class _ProductsListPageState extends State<ProductsListPage> {
   }*/
 
   void _navigateToProduct(Product product) async {
-    // Push ViewProductPage, and store any return value in update. This will
-    // be used to tell this page to refresh the product list after one is deleted.
-    // If a product isn't deleted, this will be set to null and the product list will
-    // not be refreshed.
-    bool update = await Navigator.of(context).push(
+    await Navigator.of(context).push(
       MaterialPageRoute(
         // Once again, use the BlocProvider to pass the ViewProductBloc
         // to the ViewProductPage
@@ -52,11 +47,6 @@ class _ProductsListPageState extends State<ProductsListPage> {
         ),
       ),
     );
-
-    // If update was set, get all the products again
-    if (update != null) {
-      _productsBloc.getProducts();
-    }
   }
 
   @override
