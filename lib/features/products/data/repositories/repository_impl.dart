@@ -1,27 +1,27 @@
+import 'package:meta/meta.dart';
+import 'package:flutter_app_test_project/core/app_database.dart';
+import 'package:flutter_app_test_project/core/platform/network_info.dart';
+import 'package:flutter_app_test_project/features/products/data/datasources/local_data_source.dart';
 import 'package:flutter_app_test_project/features/products/data/datasources/remote_data_source.dart';
-import 'package:flutter_app_test_project/features/products/data/models/model.dart';
+import 'package:flutter_app_test_project/features/products/domain/repositories/repository.dart';
 
-class ProductRepositoryImpl {
-  ProductRepositoryImpl._();
+class ProductsRepositoriyImpl implements ProductsRepositoriy {
+  final ProductsRemoteDataSource remoteDataSource;
+  final ProductsLocalDataSource localDataSource;
+  final NetworkInfo networkInfo;
 
-  static final ProductRepositoryImpl getThisRepository = ProductRepositoryImpl._();
+  ProductsRepositoriyImpl(
+      {@required this.remoteDataSource,
+      @required this.localDataSource,
+      @required this.networkInfo});
 
-  ProductRemoteDataSource productRemoteDataSource = ProductRemoteDataSource();
+  @override
+  Stream<List<Product>> getProducts() {
+    return networkInfo.isConnected ? remoteDataSource.getProducts() : localDataSource.getProducts();
+  }
 
-  Future<Product> getProduct(
-    int number,
-  ) async =>
-      await productRemoteDataSource.getProduct(number);
-
-  Future<List<Product>> getProducts() async =>
-      await productRemoteDataSource.getProducts();
-
-  Future<int> newProduct(Product product) async =>
-      await productRemoteDataSource.newProduct(product);
-
-  Future<int> updateProduct(int id, Product product) async =>
-      await productRemoteDataSource.updateProduct(product.id, product);
-
-  Future<int> deleteProduct(int id) async =>
-      await productRemoteDataSource.deleteProduct(id);
+  @override
+  Stream<Product> getProduct(Product product) {
+    return networkInfo.isConnected ? remoteDataSource.getProduct(product) : localDataSource.getProduct(product);
+  }
 }

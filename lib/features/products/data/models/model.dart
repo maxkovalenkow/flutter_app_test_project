@@ -1,13 +1,5 @@
-class Product {
-	int id;
-	String image;
-	String name;
-	String contents;
+import 'package:flutter_app_test_project/features/products/domain/entities/entities.dart';
 
-	Product({
-		this.id,
-		this.image,
-		this.name,
-		this.contents,
-	});
+class ProductsModel extends Products {
+  
 }
