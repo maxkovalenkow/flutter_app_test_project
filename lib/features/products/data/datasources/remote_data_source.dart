@@ -1,4 +1,4 @@
-import 'package:flutter_app_test_project/core/app_database.dart';
+import 'package:flutter_app_test_project/core/data/app_database.dart';
 
 abstract class ProductsRemoteDataSource {
   Stream<List<Product>> getProducts();
@@ -9,11 +9,11 @@ abstract class ProductsRemoteDataSource {
 class ProductsRemoteDataSourceImpl implements ProductsRemoteDataSource {
   @override
   Stream<List<Product>> getProducts() {
-    return Database.getDB.watchProducts();
+    return AppDatabase.getDB.watchProducts();
   }
 
   @override
   Stream<Product> getProduct(Product product) {
-    return Database.getDB.watchProduct(product);
+    return AppDatabase.getDB.watchProduct(product);
   }
 }

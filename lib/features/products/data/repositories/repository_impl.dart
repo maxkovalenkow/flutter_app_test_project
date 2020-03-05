@@ -1,5 +1,5 @@
 import 'package:meta/meta.dart';
-import 'package:flutter_app_test_project/core/app_database.dart';
+import 'package:flutter_app_test_project/core/data/app_database.dart';
 import 'package:flutter_app_test_project/core/platform/network_info.dart';
 import 'package:flutter_app_test_project/features/products/data/datasources/local_data_source.dart';
 import 'package:flutter_app_test_project/features/products/data/datasources/remote_data_source.dart';

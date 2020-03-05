@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_test_project/core/app_database.dart';
+import 'package:flutter_app_test_project/core/data/app_database.dart';
 
 class ViewWidget extends StatelessWidget {
   final Product product;

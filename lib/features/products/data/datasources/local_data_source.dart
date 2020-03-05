@@ -1,4 +1,4 @@
-import 'package:flutter_app_test_project/core/app_database.dart';
+import 'package:flutter_app_test_project/core/data/app_database.dart';
 import 'package:flutter_app_test_project/features/products/data/models/model.dart';
 
 abstract class ProductsLocalDataSource {

@@ -9,6 +9,8 @@ part 'app_database.g.dart';
 @UseMoor(tables: [Products])
 // _$AppDatabase is the name of the generated class
 class AppDatabase extends _$AppDatabase {
+  static final AppDatabase getDB = AppDatabase();
+
   AppDatabase()
       // Specify the location of the database file
       : super((FlutterQueryExecutor.inDatabaseFolder(
@@ -35,8 +37,4 @@ class AppDatabase extends _$AppDatabase {
   Future updateProduct(Product product) => update(products).replace(product);
 
   Future deleteProduct(Product product) => delete(products).delete(product);
-}
-
-class Database {
-  static final AppDatabase getDB = AppDatabase();
 }
