@@ -6,8 +6,15 @@ import 'package:flutter_app_test_project/features/products/data/datasources/remo
 import 'package:flutter_app_test_project/features/products/domain/repositories/repository.dart';
 
 class ProductsRepositoriyImpl implements ProductsRepositoriy {
+  static final ProductsRepositoriyImpl getPR = ProductsRepositoriyImpl(
+      remoteDataSource: ProductsRemoteDataSourceImpl(),
+      localDataSource: ProductsLocalDataSourceImpl(),
+      networkInfo: NetworkInfoImpl(true));
+
   final ProductsRemoteDataSource remoteDataSource;
+  
   final ProductsLocalDataSource localDataSource;
+
   final NetworkInfo networkInfo;
 
   ProductsRepositoriyImpl(
@@ -17,11 +24,15 @@ class ProductsRepositoriyImpl implements ProductsRepositoriy {
 
   @override
   Stream<List<Product>> getProducts() {
-    return networkInfo.isConnected ? remoteDataSource.getProducts() : localDataSource.getProducts();
+    return networkInfo.isConnected
+        ? remoteDataSource.getProducts()
+        : localDataSource.getProducts();
   }
 
   @override
   Stream<Product> getProduct(Product product) {
-    return networkInfo.isConnected ? remoteDataSource.getProduct(product) : localDataSource.getProduct(product);
+    return networkInfo.isConnected
+        ? remoteDataSource.getProduct(product)
+        : localDataSource.getProduct(product);
   }
 }

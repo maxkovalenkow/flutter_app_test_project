@@ -1,24 +1,23 @@
-import 'package:meta/meta.dart';
-import 'package:flutter_app_test_project/features/products/domain/usecases/get_item.dart';
-import 'package:flutter_app_test_project/features/products/domain/usecases/get_list.dart';
-/*import 'package:flutter_app_test_project/features/products/presintation/bloc/products_event.dart';
-import 'package:flutter_app_test_project/features/products/presintation/bloc/products_state.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';*/
+import 'dart:async';
 
-class ProductsBloc/* extends Bloc<ProductsEvent, ProductsState>*/ {
-  final GetItemProduct getItemProduct;
+import 'package:flutter_app_test_project/core/app_database.dart';
+import 'package:flutter_app_test_project/features/products/domain/usecases/get_list.dart';
+import 'package:flutter_app_test_project/features/products/presintation/bloc/bloc_provider.dart';
+
+class ProductsBloc implements BlocBase {
   final GetListProducts getListProducts;
 
-  ProductsBloc({
-    @required this.getItemProduct,
-    @required this.getListProducts,
-  });
+  Stream<List<Product>> products;
 
-  /*@override
-  ProductsState get initialState => Empty();
+  ProductsBloc({@override this.getListProducts}) {
+    products = getListProducts.call();
+  }
 
-  @override
-  Stream<ProductsState> mapEventToState(ProductsEvent event) {
-    throw UnimplementedError();
-  }*/
+  void insertProduct(Product product) {
+    Database.getDB.insertProduct(product);
+  }
+
+  void deleteProduct(Product product) {
+    Database.getDB.deleteProduct(product);
+  }
 }

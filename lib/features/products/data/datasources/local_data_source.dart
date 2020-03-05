@@ -3,7 +3,9 @@ import 'package:flutter_app_test_project/features/products/data/models/model.dar
 
 abstract class ProductsLocalDataSource {
   Stream<List<Product>> getProducts();
+
   Stream<Product> getProduct(Product product);
+
   cacheProducts(ProductsModel productsToCache);
 }
 
@@ -13,6 +15,7 @@ class ProductsLocalDataSourceImpl implements ProductsLocalDataSource {
     return Stream<List<Product>>.empty();
   }
 
+  @override
   Stream<Product> getProduct(Product product) {
     return Stream<Product>.empty();
   }

@@ -2,6 +2,7 @@ import 'package:flutter_app_test_project/core/app_database.dart';
 
 abstract class ProductsRemoteDataSource {
   Stream<List<Product>> getProducts();
+  
   Stream<Product> getProduct(Product product);
 }
 

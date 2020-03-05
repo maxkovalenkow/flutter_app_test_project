@@ -38,7 +38,5 @@ class AppDatabase extends _$AppDatabase {
 }
 
 class Database {
-  Database._();
-
   static final AppDatabase getDB = AppDatabase();
 }
