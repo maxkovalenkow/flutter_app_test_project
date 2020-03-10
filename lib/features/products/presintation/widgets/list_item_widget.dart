@@ -13,36 +13,34 @@ class ListItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Image.network(product.image),
-            SizedBox(
-              height: 16.0,
-            ),
-            Text(
-              product.title,
-            ),
-          ],
-        ),
-        subtitle: Text(
-          product.subtitle,
-        ),
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => BlocProvider(
-                  bloc: ProductBloc(
-                      product: product,
-                      getItemProduct:
-                          GetItemProduct(ProductsRepositoriyImpl.getPR)),
-                  child: ViewPage(product: product)),
-            ),
-          );
-        },
+    return InkResponse(
+      child: GridTile(
+        child: Image.network(product.image, fit: BoxFit.cover,),
+        footer: InkResponse(
+            child: GridTileBar(
+                title: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: AlignmentDirectional.centerStart,
+                  child: Text(product.title),
+                ),
+                subtitle: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: AlignmentDirectional.centerStart,
+                  child: Text(product.subtitle),
+                ))),
       ),
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                bloc: ProductBloc(
+                    id: product.id,
+                    getItemProduct:
+                        GetItemProduct(ProductsRepositoriyImpl.getPR)),
+                child: ViewPage(product: product)),
+          ),
+        );
+      },
     );
   }
 }

@@ -1,13 +1,11 @@
-abstract class UseCase<Type, Params> {
-  Type call({Params params});
+abstract class UseCase<Type, Type1, Params> {
+  Type call(Params id);
+
+  Future<int> insert(Type1 entity);
+
+  Future<bool> update(Type1 entity);
+
+  Future<int> delete(Type1 entity);
 }
 
-class NoParams {
-  
-}
-
-class Params<Type> {
-  final Type value;
-
-  Params(this.value);
-}
+class NoParams {}

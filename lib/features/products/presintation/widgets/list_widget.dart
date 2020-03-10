@@ -7,24 +7,31 @@ class ListWidget extends StatelessWidget {
   final ProductsBloc productsBloc;
 
   const ListWidget({@required this.productsBloc});
-  
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-    stream: productsBloc.products,
-    builder: (BuildContext context, AsyncSnapshot<List<Product>> snapshot) {
-      List<Product> products = snapshot.data ?? List();
+      stream: productsBloc.products,
+      builder: (BuildContext context, AsyncSnapshot<List<Product>> snapshot) {
+        List<Product> products = snapshot.data ?? List();
 
-      return ListView.builder(
-        itemCount: products.length,
-        itemBuilder: (_, index) {
-          Product itemProducts = products[index];
-          return ListItemWidget(
-            product: itemProducts,
-          );
-        },
-      );
-    },
-  );
+        List<Widget> children = List<Widget>();
+
+        products.forEach((element) {
+          children.add(ListItemWidget(
+            product: element,
+          ));
+        });
+
+        return GridView.count(
+          primary: false,
+          padding: EdgeInsets.all(4),
+          crossAxisSpacing: 4,
+          mainAxisSpacing: 4,
+          crossAxisCount: 2,
+          children: children,
+        );
+      },
+    );
   }
 }

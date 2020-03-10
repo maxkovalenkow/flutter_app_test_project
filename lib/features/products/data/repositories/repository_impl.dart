@@ -1,38 +1,44 @@
 import 'package:meta/meta.dart';
 import 'package:flutter_app_test_project/core/data/app_database.dart';
-import 'package:flutter_app_test_project/core/platform/network_info.dart';
 import 'package:flutter_app_test_project/features/products/data/datasources/local_data_source.dart';
 import 'package:flutter_app_test_project/features/products/data/datasources/remote_data_source.dart';
 import 'package:flutter_app_test_project/features/products/domain/repositories/repository.dart';
 
 class ProductsRepositoriyImpl implements ProductsRepositoriy {
   static final ProductsRepositoriyImpl getPR = ProductsRepositoriyImpl(
-      remoteDataSource: ProductsRemoteDataSourceImpl(),
       localDataSource: ProductsLocalDataSourceImpl(),
-      networkInfo: NetworkInfoImpl(true));
+      remoteDataSource: ProductsRemoteDataSourceImpl());
 
-  final ProductsRemoteDataSource remoteDataSource;
-  
   final ProductsLocalDataSource localDataSource;
 
-  final NetworkInfo networkInfo;
+  final ProductsRemoteDataSource remoteDataSource;
 
   ProductsRepositoriyImpl(
-      {@required this.remoteDataSource,
-      @required this.localDataSource,
-      @required this.networkInfo});
+      {@required this.localDataSource,
+      @required this.remoteDataSource});
 
   @override
   Stream<List<Product>> getProducts() {
-    return networkInfo.isConnected
-        ? remoteDataSource.getProducts()
-        : localDataSource.getProducts();
+    return localDataSource.getProducts();
   }
 
   @override
-  Stream<Product> getProduct(Product product) {
-    return networkInfo.isConnected
-        ? remoteDataSource.getProduct(product)
-        : localDataSource.getProduct(product);
+  Stream<Product> getProduct(int id) {
+    return localDataSource.getProduct(id);
+  }
+
+  @override
+  Future<int> insertProduct(Product product) {
+    return localDataSource.insertProduct(product);
+  }
+
+  @override
+  Future<bool> updateProduct(Product product) {
+    return localDataSource.updateProduct(product);
+  }
+
+  @override
+  Future<int> deleteProduct(Product product) {
+    return localDataSource.deleteProduct(product);
   }
 }

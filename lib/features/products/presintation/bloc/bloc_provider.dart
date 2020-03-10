@@ -12,7 +12,7 @@ class BlocProvider<T extends BlocBase> extends StatefulWidget {
   });
 
   final T bloc;
-  
+
   final Widget child;
 
   @override

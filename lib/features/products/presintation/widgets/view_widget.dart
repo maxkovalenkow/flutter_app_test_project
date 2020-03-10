@@ -15,14 +15,10 @@ class ViewWidget extends StatelessWidget {
         Container(
           padding: EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                product.title,
-              ),
-              Text(
                 product.subtitle,
-              )
+              ),
             ],
           ),
         ),

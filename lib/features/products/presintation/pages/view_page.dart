@@ -24,28 +24,43 @@ class _ViewPageState extends State<ViewPage> {
     productBloc = BlocProvider.of<ProductBloc>(context);
   }
 
+  final globalKey = GlobalKey<ScaffoldState>();
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext conte) {
     return StreamBuilder(
         stream: productBloc.product,
-        builder: (BuildContext context, AsyncSnapshot<Product> snapshot) {
+        builder: (BuildContext contex, AsyncSnapshot<Product> snapshot) {
           if (snapshot.hasData) {
             Product product = snapshot.data;
 
             return Scaffold(
-                appBar: AppBar(title: Text('Products')),
+                key: globalKey,
+                appBar: AppBar(title: Text(product.title)),
                 body: ViewWidget(
                   product: product,
                 ),
                 floatingActionButton: FloatingActionButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
+                  onPressed: () async {
+                    await Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => BlocProvider(
                             bloc: productBloc,
-                            child: EditPage(product: product)),
+                            child: EditPage(product: product, editPageType: EditPageType.Edit,)),
                       ),
                     );
+
+                    String msg = productBloc.sendState;
+
+                    if (msg != '') {
+                      globalKey.currentState.hideCurrentSnackBar();
+
+                      globalKey.currentState.showSnackBar(SnackBar(
+                        content: Text(msg),
+                      ));
+
+                      productBloc.sendState = '';
+                    }
                   },
                   child: Icon(Icons.edit),
                 ));

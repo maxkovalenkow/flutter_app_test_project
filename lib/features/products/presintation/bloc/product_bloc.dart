@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter_app_test_project/core/data/app_database.dart';
-import 'package:flutter_app_test_project/core/usecases/usecase.dart';
 import 'package:flutter_app_test_project/features/products/domain/usecases/get_item.dart';
 import 'package:flutter_app_test_project/features/products/presintation/bloc/bloc_provider.dart';
 
@@ -10,15 +9,27 @@ class ProductBloc implements BlocBase {
 
   Stream<Product> product;
 
-  ProductBloc({@override this.getItemProduct, @override Product product}) {
-    this.product = getItemProduct.call(params: Params<Product>(product));
+  String sendState = '';
+
+  ProductBloc({@override this.getItemProduct, int id}) {
+    if (id != -1) this.product = getItemProduct.call(id);
   }
 
-  void updateProduct(Product product) {
-    AppDatabase.getDB.updateProduct(product);
+  insertProduct(Product product) async {
+    sendState = (await getItemProduct.insert(product) != -1
+        ? 'insertProduct'
+        : 'error insertProduct');
   }
 
-  void deleteProduct(Product product) {
-    AppDatabase.getDB.deleteProduct(product);
+  updateProduct(Product product) async {
+    sendState = (await getItemProduct.update(product)
+        ? 'updateProduct'
+        : 'error updateProduct');
+  }
+
+  deleteProduct(Product product) async {
+    sendState = (await getItemProduct.delete(product) != -1
+        ? 'deleteProduct'
+        : 'error deleteProduct');
   }
 }

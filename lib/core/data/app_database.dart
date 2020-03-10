@@ -27,14 +27,15 @@ class AppDatabase extends _$AppDatabase {
   // Moor supports Streams which emit elements when the watched data changes
   Stream<List<Product>> watchProducts() => select(products).watch();
 
-  Stream<Product> watchProduct(Product product) =>
-      (select(products)..where((tbl) => tbl.id.equals(product.id)))
-          .watchSingle();
+  Stream<Product> watchProduct(int id) =>
+      (select(products)..where((tbl) => tbl.id.equals(id))).watchSingle();
 
-  Future insertProduct(Product product) => into(products).insert(product);
+  Future<int> insertProduct(Product product) => into(products).insert(product);
 
   // Updates a Product with a matching primary key
-  Future updateProduct(Product product) => update(products).replace(product);
+  Future<bool> updateProduct(Product product) =>
+      update(products).replace(product);
 
-  Future deleteProduct(Product product) => delete(products).delete(product);
+  Future<int> deleteProduct(Product product) =>
+      delete(products).delete(product);
 }

@@ -1,25 +1,42 @@
 import 'package:flutter_app_test_project/core/data/app_database.dart';
-import 'package:flutter_app_test_project/features/products/data/models/model.dart';
+
 
 abstract class ProductsLocalDataSource {
   Stream<List<Product>> getProducts();
 
-  Stream<Product> getProduct(Product product);
+  Stream<Product> getProduct(int id);
 
-  cacheProducts(ProductsModel productsToCache);
+  Future<int> insertProduct(Product product);
+
+  Future<bool> updateProduct(Product product);
+
+  Future<int> deleteProduct(Product product);
 }
 
 class ProductsLocalDataSourceImpl implements ProductsLocalDataSource {
   @override
   Stream<List<Product>> getProducts() {
-    return Stream<List<Product>>.empty();
+    return AppDatabase.getDB.watchProducts();
   }
 
   @override
-  Stream<Product> getProduct(Product product) {
-    return Stream<Product>.empty();
+  Stream<Product> getProduct(int id) {
+    return AppDatabase.getDB.watchProduct(id);
   }
 
   @override
-  cacheProducts(ProductsModel productsToCache) {}
+  Future<int> insertProduct(Product product) {
+    return AppDatabase.getDB.insertProduct(product);
+  }
+
+  @override
+  Future<bool> updateProduct(Product product) {
+    return AppDatabase.getDB.updateProduct(product);
+  }
+
+  @override
+  Future<int> deleteProduct(Product product) {
+    return AppDatabase.getDB.deleteProduct(product);
+  }
 }
+

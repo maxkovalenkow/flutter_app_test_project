@@ -1,19 +1,40 @@
 import 'package:flutter_app_test_project/core/data/app_database.dart';
 
 abstract class ProductsRemoteDataSource {
-  Stream<List<Product>> getProducts();
-  
-  Stream<Product> getProduct(Product product);
+  List<Product> getProducts();
+
+  Product getProduct(int id);
+
+  Future<int> insertProduct(Product product);
+
+  Future<bool> updateProduct(Product product);
+
+  Future<int> deleteProduct(Product product);
 }
 
 class ProductsRemoteDataSourceImpl implements ProductsRemoteDataSource {
   @override
-  Stream<List<Product>> getProducts() {
-    return AppDatabase.getDB.watchProducts();
+  List<Product> getProducts() {
+    return null;
   }
 
   @override
-  Stream<Product> getProduct(Product product) {
-    return AppDatabase.getDB.watchProduct(product);
+  Product getProduct(int id) {
+    return null;
+  }
+
+  @override
+  Future<int> insertProduct(Product product) {
+    return null;
+  }
+
+  @override
+  Future<bool> updateProduct(Product product) {
+    return null;
+  }
+
+  @override
+  Future<int> deleteProduct(Product product) {
+    return null;
   }
 }

@@ -4,10 +4,14 @@ import 'package:flutter_app_test_project/features/products/presintation/bloc/blo
 import 'package:flutter_app_test_project/features/products/presintation/bloc/product_bloc.dart';
 import 'package:flutter_app_test_project/features/products/presintation/widgets/edit_widget.dart';
 
+enum EditPageType { Edit, Add }
+
 class EditPage extends StatefulWidget {
   final Product product;
 
-  EditPage({@required this.product});
+  final EditPageType editPageType;
+
+  EditPage({@required this.product, @required this.editPageType});
 
   @override
   _EditPageState createState() => _EditPageState();
@@ -35,20 +39,32 @@ class _EditPageState extends State<EditPage> {
     );
 
     return Scaffold(
-      appBar: AppBar(title: Text('Products')),
+      appBar: AppBar(
+          title: Text(widget.editPageType == EditPageType.Edit
+              ? widget.product.title
+              : 'Add Product')),
       body: editWidget,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          productBloc.updateProduct(Product(
-            id: widget.product.id,
-            title: editWidget.productTitleController.text,
-            image: editWidget.productImageController.text,
-            subtitle: editWidget.productSubtitleController.text,
-          ));
+        onPressed: () async {
+          if (widget.editPageType == EditPageType.Edit)
+            await productBloc.updateProduct(Product(
+              id: widget.product.id,
+              title: editWidget.productTitleController.text,
+              image: editWidget.productImageController.text,
+              subtitle: editWidget.productSubtitleController.text,
+            ));
+          else
+            await productBloc.insertProduct(Product(
+              title: editWidget.productTitleController.text,
+              image: editWidget.productImageController.text,
+              subtitle: editWidget.productSubtitleController.text,
+            ));
 
           Navigator.pop(context);
         },
-        child: Icon(Icons.save),
+        child: Icon(widget.editPageType == EditPageType.Edit
+            ? Icons.save
+            : Icons.check),
       ),
     );
   }
