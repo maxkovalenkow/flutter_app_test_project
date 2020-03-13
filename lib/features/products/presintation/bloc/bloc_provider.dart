@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_test_project/core/usecases/usecase.dart';
+import 'package:flutter_app_test_project/core/usecase.dart';
 
 abstract class BlocBase {
   BlocBase({@override UseCase useCase});
@@ -27,7 +27,7 @@ class BlocProvider<T extends BlocBase> extends StatefulWidget {
 
 class _BlocProviderState<T> extends State<BlocProvider<BlocBase>> {
   @override
-  void dispose() {
+  dispose() {
     super.dispose();
   }
 

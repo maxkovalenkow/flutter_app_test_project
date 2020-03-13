@@ -1,4 +1,4 @@
-import 'package:flutter_app_test_project/features/products/domain/entities/entities.dart';
+import 'package:flutter_app_test_project/features/products/domain/entities.dart';
 import 'package:moor/moor.dart';
 import 'package:moor_flutter/moor_flutter.dart';
 
@@ -9,15 +9,21 @@ part 'app_database.g.dart';
 @UseMoor(tables: [Products])
 // _$AppDatabase is the name of the generated class
 class AppDatabase extends _$AppDatabase {
-  static final AppDatabase getDB = AppDatabase();
-
   AppDatabase()
       // Specify the location of the database file
       : super((FlutterQueryExecutor.inDatabaseFolder(
           path: 'db.sqlite',
           // Good for debugging - prints SQL in the console
           logStatements: true,
-        )));
+        ))) {
+    delete(products).go();
+
+    for (var i = 10; i < 20; i++)
+      into(products).insert(Product(
+          image: 'https://dummyimage.com/600x400/0$i/fff',
+          title: 'title $i',
+          subtitle: 'subtitle $i'));
+  }
 
   // Bump this when changing tables and columns.
   // Migrations will be covered in the next part.
