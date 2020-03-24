@@ -5,16 +5,9 @@ import 'package:flutter_app_test_project/injection_container.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class Listbloc extends Disposable {
-  @override
-  void dispose() {}
-}
-
 class ListModule extends ChildModule {
   @override
-  List<Bind> get binds => [
-        Bind((i) => Listbloc()),
-      ];
+  List<Bind> get binds => [];
 
   @override
   List<Router> get routers => [

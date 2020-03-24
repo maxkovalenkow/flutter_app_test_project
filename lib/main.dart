@@ -10,11 +10,6 @@ main() async {
   runApp(ModularApp(module: AppModule()));
 }
 
-class AppBloc extends Disposable {
-  @override
-  void dispose() {}
-}
-
 class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -28,9 +23,7 @@ class AppWidget extends StatelessWidget {
 
 class AppModule extends MainModule {
   @override
-  List<Bind> get binds => [
-        Bind((i) => AppBloc()),
-      ];
+  List<Bind> get binds => [];
 
   @override
   List<Router> get routers => [
