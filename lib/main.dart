@@ -1,34 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_test_project/features/products/presintation/bloc/list_bloc.dart';
-import 'package:flutter_app_test_project/features/products/presintation/pages/list_view_page.dart';
-import 'package:flutter_app_test_project/injection_container.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_app_test_project/features/products/presintation/modules/details_page.dart';
+import 'package:flutter_app_test_project/features/products/presintation/modules/list_module.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'injection_container.dart' as di;
 
 main() async {
   await di.init();
 
-  runApp(MyApp());
+  runApp(ModularApp(module: AppModule()));
 }
 
-class MyApp extends StatefulWidget {
+class AppBloc extends Disposable {
   @override
-  _MyAppState createState() => _MyAppState();
+  void dispose() {}
 }
 
-class _MyAppState extends State<MyApp> {
-  @override
-  initState() {
-    super.initState();
-  }
-
+class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: BlocProvider(
-        create: (_) => sl<ListProductBloc>(),
-        child: ListViewPage(),
-      ),
+      initialRoute: Modular.initialRoute,
+      navigatorKey: Modular.navigatorKey,
+      onGenerateRoute: Modular.generateRoute,
     );
   }
+}
+
+class AppModule extends MainModule {
+  @override
+  List<Bind> get binds => [
+        Bind((i) => AppBloc()),
+      ];
+
+  @override
+  List<Router> get routers => [
+        Router(Modular.initialRoute, module: ListModule()),
+        Router("/DetailsModule/", module: DetailsModule()),
+      ];
+
+  @override
+  Widget get bootstrap => AppWidget();
 }

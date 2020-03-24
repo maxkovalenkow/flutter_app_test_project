@@ -4,6 +4,7 @@ import 'package:flutter_app_test_project/features/products/presintation/bloc/det
 import 'package:flutter_app_test_project/features/products/presintation/pages/details_page.dart';
 import 'package:flutter_app_test_project/injection_container.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class ListItemWidget extends StatelessWidget {
   final Product product;
@@ -32,12 +33,7 @@ class ListItemWidget extends StatelessWidget {
                 ))),
       ),
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => BlocProvider(
-                create: (_) => sl<DetailsProductBloc>(), child: DetailsPage(id: product.id)),
-          ),
-        );
+        Modular.to.pushNamed('/DetailsModule/${product.id}');
       },
     );
   }
