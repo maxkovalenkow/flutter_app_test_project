@@ -14,12 +14,16 @@ class ProductsRepositoriyImpl implements ProductsRepositoriy {
       @required this.remoteDataSource});
 
   @override
-  Stream<List<Product>> getProducts() {
-    return localDataSource.getProducts();
+  Stream<List<Product>> getProducts() async* {
+    yield* localDataSource.getProducts();
+
+    yield remoteDataSource.getProducts();
   }
 
   @override
-  Stream<Product> getProduct(int id) {
-    return localDataSource.getProduct(id);
+  Stream<Product> getProduct(int id) async* {
+    yield* localDataSource.getProduct(id);
+    
+    yield remoteDataSource.getProduct(id);
   }
 }

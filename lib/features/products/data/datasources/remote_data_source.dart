@@ -1,14 +1,14 @@
 import 'package:flutter_app_test_project/core/data/app_database.dart';
 
 abstract class ProductsRemoteDataSource {
-  List<Product> geListProduct();
+  List<Product> getProducts();
 
   Product getProduct(int id);
 }
 
 class ProductsRemoteDataSourceImpl implements ProductsRemoteDataSource {
   @override
-  List<Product> geListProduct() {
+  List<Product> getProducts() {
     return List<Product>();
   }
 

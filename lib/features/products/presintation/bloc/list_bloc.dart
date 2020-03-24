@@ -1,18 +1,14 @@
 import 'package:flutter_app_test_project/core/data/app_database.dart';
 import 'package:flutter_app_test_project/core/usecase.dart';
-import 'package:flutter_app_test_project/features/products/data/datasources/local_data_source.dart';
-import 'package:flutter_app_test_project/features/products/data/datasources/remote_data_source.dart';
+import 'package:flutter_app_test_project/features/products/domain/repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
 class ListProductBloc extends Bloc<NoParams, List<Product>> {
-  final ProductsLocalDataSource localDataSource;
-
-  final ProductsRemoteDataSource remoteDataSource;
+  final ProductsRepositoriy productsRepositoriy;
 
   ListProductBloc({
-    @required this.localDataSource,
-    @required this.remoteDataSource,
+    @required this.productsRepositoriy,
   });
 
   void getProducts() async {
@@ -27,8 +23,6 @@ class ListProductBloc extends Bloc<NoParams, List<Product>> {
 
   @override
   Stream<List<Product>> mapEventToState(NoParams event) async* {
-    yield* transformStates(localDataSource.getProducts());
-
-    yield remoteDataSource.geListProduct();
+    yield* transformStates(productsRepositoriy.getProducts());
   }
 }

@@ -20,15 +20,13 @@ Future<void> init() async {
   // Bloc
   sl.registerFactory<ListProductBloc>(
     () => ListProductBloc(
-      localDataSource: sl(),
-      remoteDataSource: sl(),
+      productsRepositoriy: sl(),
     ),
   );
 
   sl.registerFactory<DetailsProductBloc>(
     () => DetailsProductBloc(
-      localDataSource: sl(),
-      remoteDataSource: sl(),
+      productsRepositoriy: sl(),
     ),
   );
 
