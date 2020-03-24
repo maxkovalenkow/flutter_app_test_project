@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_test_project/core/data/app_database.dart';
-import 'package:flutter_app_test_project/features/products/presintation/bloc/details_bloc.dart';
-import 'package:flutter_app_test_project/features/products/presintation/pages/details_page.dart';
-import 'package:flutter_app_test_project/injection_container.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class ListItemWidget extends StatelessWidget {
